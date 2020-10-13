@@ -7,15 +7,13 @@ namespace TestGameInterface
     class GameLogic
     {
         public static bool end;
-        public MyTank t34;
-        public EnemyTank tiger;
 
 
         internal static void StartApplicationLogic()
         {
 
-            Player movePlayer = new Player(tiger);
-            Computer movePc = new Computer(t34);
+            Player movePlayer = new Player();
+            Computer movePc = new Computer();
 
             while (!end)
             {
@@ -31,14 +29,5 @@ namespace TestGameInterface
                 
             }
         }
-
-
-        //public MyTank(double armor, double hp, double damage, double ammu)
-        //{
-        //    Armor = armor;
-        //    Hp = hp;
-        //    Damage = damage;
-        //    Ammu = ammu;
-        //}
     }
 }
