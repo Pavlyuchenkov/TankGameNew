@@ -6,20 +6,13 @@ namespace TestGameInterface
 {
     class Player : IPlayer
     {
-        MyTank T34 = new MyTank(5, 100, 80, 6);
-        private EnemyTank tigertank;
-        public Player(EnemyTank Tiger)
-        {
-            tigertank = Tiger;
-        }
-      
-
-        internal static bool move;
+        private MyTank T34;
+        private EnemyTank Tiger;
+        private bool End;
+        private static bool Move;
         public void MovePlayer()
         {
-            
-            
-
+            GameLogic tank = new GameLogic(T34, Tiger, End, Move);
             Dictionary<ConsoleKey, Actions> command = new Dictionary<ConsoleKey, Actions>(3)
                 {
                     {ConsoleKey.F, Actions.Shoot},
@@ -29,23 +22,24 @@ namespace TestGameInterface
 
                 };
 
-            while (!GameLogic.end)
+
+            while (!GameLogic.End)
             {
                 if (T34.Hp == 0)
                 {
                     Console.Clear();
                     Console.WriteLine("you lose");
-                    GameLogic.end = true;
+                    GameLogic.End = true;
                 }
-                else if (tigertank.Hp == 0)
+                else if (Tiger.Hp == 0)
                 {
                     Console.Clear();
                     Console.WriteLine("you win");
-                    GameLogic.end = true;
+                    GameLogic.End = true;
                 }
                 else
                 {
-                    move = true;
+                    Move = true;
 
 
                     #region статы
@@ -53,7 +47,7 @@ namespace TestGameInterface
                     Console.WriteLine("Статы вашего танка: ");
                     T34.StatInfo();
                     Console.WriteLine("\nСтаты вражеского танка: ");
-                    tigertank.StatInfo();
+                    Tiger.StatInfo();
                     #endregion
 
                     Console.WriteLine("\nF - выстрел, R - ремонт, B - купить снаряды, E - выход.");
@@ -74,7 +68,7 @@ namespace TestGameInterface
                                 Console.WriteLine("\t***************************");
                                 Console.WriteLine("\tЯ стреляю в вражеский танк!");
                                 Console.WriteLine("\t***************************");
-                                T34.Shoot(tigertank);
+                                T34.Shoot(Tiger);
                             }
                             else
                             {
@@ -82,7 +76,7 @@ namespace TestGameInterface
                                 System.Threading.Thread.Sleep(1000);
                                 continue;
                             }
-                            move = false;
+                            Move = false;
                             break;
                         case Actions.Repair:
                             if (T34.Hp != 100)
@@ -99,7 +93,7 @@ namespace TestGameInterface
                                 continue;
 
                             }
-                            move = false;
+                            Move = false;
                             break;
                         case Actions.Buy:
                             if (T34.Ammu != 10)
@@ -116,12 +110,12 @@ namespace TestGameInterface
                                 continue;
                             }
 
-                            move = false;
+                            Move = false;
                             break;
                         case Actions.Exit:
                             Console.Clear();
                             Console.WriteLine("\t\t\t\tВЫ ПОКИДАЕТЕ ПОЛЕ БОЯ! ТРУСЫ БУДУТ ОТДАНЫ ПОД ТРЕБУНАЛ!");
-                            GameLogic.end = true;
+                            GameLogic.End = true;
                             break;
                     }
                     System.Threading.Thread.Sleep(1000);

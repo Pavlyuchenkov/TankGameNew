@@ -6,18 +6,14 @@ namespace TestGameInterface
 {
     class Computer : IComputer
     {
-        EnemyTank Tiger = new EnemyTank(5, 100, 80, 4);
-        private MyTank t34tank;
-        public Computer(MyTank T34)
-        {
-            t34tank = T34;
-        }
+        private MyTank T34;
+        private EnemyTank Tiger;
+        private bool End;
+        private static bool Move;
 
         public void MovePc()
         {
-  
-
-
+            GameLogic tank = new GameLogic(T34, Tiger, End, Move);
             var random = new Random();
             int option = random.Next(1, 3);
                 switch (option)
@@ -28,7 +24,7 @@ namespace TestGameInterface
                             Console.WriteLine("\r\t***************************");
                             Console.WriteLine("\tВражеский танк стреляет в меня!");
                             Console.WriteLine("\t***************************");
-                            Tiger.Shoot(t34tank);
+                            Tiger.Shoot(T34);
                         }
                         else
                         {
@@ -53,7 +49,7 @@ namespace TestGameInterface
                                 Console.WriteLine("\t***************************");
                                 Console.WriteLine("\tВражеский танк стреляет в меня!");
                                 Console.WriteLine("\t***************************");
-                                Tiger.Shoot(t34tank);
+                                Tiger.Shoot(T34);
                             }
                             else
                             {
@@ -71,7 +67,7 @@ namespace TestGameInterface
                             Console.WriteLine("\t***************************");
                             Console.WriteLine("\tКажется вражеский танк поплняет боекомплект!");
                             Console.WriteLine("\t***************************");
-                            t34tank.BuyAmmu();
+                            T34.BuyAmmu();
                         }
                         else
                         {
